@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
-using PInvoke.Frida;
 
-namespace ConsoleApp2.Frida;
+
+namespace PInvoke.FridaCore;
 
 public class FridaApplication(IntPtr handle):IFridaObject
 {

@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
-namespace ConsoleApp2.Frida;
+namespace PInvoke.FridaCore;
 
 public class Tools
 {

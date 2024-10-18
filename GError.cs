@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace ConsoleApp2.Frida;
+namespace PInvoke.FridaCore;
 
 [StructLayout(layoutKind:LayoutKind.Sequential)]
 public struct GError

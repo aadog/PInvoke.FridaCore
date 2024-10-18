@@ -1,9 +1,6 @@
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.Unicode;
-using PInvoke.Frida;
 
-namespace ConsoleApp2.Frida;
+namespace PInvoke.FridaCore;
 
 public class FridaSession(IntPtr handle):IFridaObject
 {

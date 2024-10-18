@@ -1,4 +1,4 @@
-namespace ConsoleApp2.Frida;
+namespace PInvoke.FridaCore;
 
 public class FridaScriptOptions
 {

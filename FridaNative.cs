@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace ConsoleApp2.Frida;
+namespace PInvoke.FridaCore;
 
 public enum FridaDeviceType
 {
@@ -43,7 +43,7 @@ public enum FridaStdio
 };
 public class FridaNative
 {
-    public const string DllName = "FridaCoreSharedWindows.dll";
+    public const string DllName = "FridaCoreSharedWindows";
     public static IntPtr GVariantStringType = g_variant_type_new("s");
     public static IntPtr GVariantInt64Type = g_variant_type_new("x");
     public static IntPtr GVariantBooleanType = g_variant_type_new("b");

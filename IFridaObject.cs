@@ -1,4 +1,4 @@
-namespace PInvoke.Frida;
+namespace PInvoke.FridaCore;
 
 public interface IFridaObject
 {

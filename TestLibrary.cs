@@ -1,14 +1,12 @@
-﻿namespace PInvoke.Frida
+﻿namespace PInvoke.FridaCore;
+public class TestLibrary
 {
-    public class TestLibrary
+    public static string TestString()
     {
-        public static string TestString()
-        {
-            return "TestLibrary";
-        }
-        public static int TestInt()
-        {
-            return 12;
-        }
+        return "TestLibrary";
+    }
+    public static int TestInt()
+    {
+        return 12;
     }
 }
