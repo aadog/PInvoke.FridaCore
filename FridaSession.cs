@@ -51,7 +51,7 @@ public class FridaSession(IntPtr handle):IFridaObject
         }
         
     }
-    public FridaScript CreateScript(string source,FridaScriptOptions options)
+    public FridaScript CreateScript(byte[] source,FridaScriptOptions options)
     {
         var scriptOptions = FridaNative.frida_script_options_new();
         FridaNative.frida_script_options_set_runtime(scriptOptions,options.Runtime);

@@ -321,8 +321,9 @@ public class FridaNative
     public static extern IntPtr frida_session_compile_script_sync(IntPtr session, string source, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
 
+
     [DllImport(DllName)]
-    public static extern IntPtr frida_session_create_script_sync(IntPtr session, string source, IntPtr options,
+    public static extern IntPtr frida_session_create_script_sync(IntPtr session, byte[] source, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName)]
