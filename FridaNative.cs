@@ -1,11 +1,15 @@
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
 namespace PInvoke.FridaCore;
 
 public enum FridaDeviceType
 {
+    [Display(Name = "Local")]
     FridaDeviceTypeLocal,
+    [Display(Name = "Remote")]
     FridaDeviceTypeRemote,
+    [Display(Name = "Usb")]
     FridaDeviceTypeUsb
 };
 
@@ -148,7 +152,7 @@ public class FridaNative
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName)]
-    public static extern IntPtr frida_device_find_process_by_pid_sync(IntPtr device, int pid, IntPtr options,
+    public static extern IntPtr frida_device_find_process_by_pid_sync(IntPtr device, uint pid, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName)]
@@ -376,7 +380,7 @@ public class FridaNative
     public static extern void frida_script_eternalize_sync(IntPtr script, IntPtr cancellable, IntPtr error);
 
     [DllImport(DllName)]
-    public static extern void frida_script_post(IntPtr script, string json, IntPtr data);
+    public static extern void frida_script_post(IntPtr script,string json, IntPtr data);
 
     [DllImport(DllName)]
     public static extern void frida_script_enable_debugger_sync(IntPtr script, Int16 port, IntPtr cancellable,
@@ -519,7 +523,7 @@ public class FridaNative
     [DllImport(DllName)]
     public static extern UInt64 g_signal_connect_data(IntPtr instance, string detailed_signal, IntPtr c_handler,
         IntPtr data, IntPtr destroy_data, GConnectFlags connect_flags);
-
+    
 
     /*g_main*/
     [DllImport(DllName)]

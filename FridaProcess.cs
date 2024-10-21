@@ -18,6 +18,6 @@ public class FridaProcess(IntPtr handle):IFridaObject
     public Dictionary<string,object> GetParameters()
     {
         var l=FridaNative.frida_process_get_parameters(Handle);
-        return Tools.GHashTableToDictionary(l);
+        return FridaTools.GHashTableToDictionary(l);
     }
 }

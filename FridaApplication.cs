@@ -24,6 +24,6 @@ public class FridaApplication(IntPtr handle):IFridaObject
     public Dictionary<string,object> GetParameters()
     {
         var l=FridaNative.frida_application_get_parameters(Handle);
-        return Tools.GHashTableToDictionary(l);
+        return FridaTools.GHashTableToDictionary(l);
     }
 }

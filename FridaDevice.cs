@@ -34,7 +34,7 @@ public class FridaDevice(IntPtr handle):IFridaObject
             FridaNative.g_error_free(ptrError);
             throw new FridaException(err);
         }
-        var d = Tools.GHashTableToDictionary(h);
+        var d = FridaTools.GHashTableToDictionary(h);
         return d;
     }
     
@@ -62,6 +62,7 @@ public class FridaDevice(IntPtr handle):IFridaObject
                 var p = FridaNative.frida_process_list_get(l,i);
                 result.Add(new FridaProcess(p));
             }
+            FridaNative.g_object_unref(l);
             return result;
         }
         finally
@@ -96,6 +97,7 @@ public class FridaDevice(IntPtr handle):IFridaObject
                 var p = FridaNative.frida_application_list_get(l,i);
                 result.Add(new FridaApplication(p));
             }
+            FridaNative.g_object_unref(l);
             return result;
         }
         finally
@@ -157,7 +159,7 @@ public class FridaDevice(IntPtr handle):IFridaObject
         }
     }
     
-    public FridaProcess? FindProcessByPid(int pid,FridaProcessMatchOptions options)
+    public FridaProcess? FindProcessByPid(uint pid,FridaProcessMatchOptions options)
     {
         var queryOptions = FridaNative.frida_process_match_options_new();
         FridaNative.frida_process_match_options_set_scope(queryOptions, options.Scope);

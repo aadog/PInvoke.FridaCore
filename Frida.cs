@@ -4,6 +4,11 @@ namespace PInvoke.FridaCore;
 
 public static class Frida
 {
+    
+    public static void GBytesUnRef(IntPtr handle)
+    {
+        FridaNative.g_bytes_unref(handle);
+    }
     public static void GObjectUnRef(IntPtr handle)
     {
         FridaNative.g_object_unref(handle);

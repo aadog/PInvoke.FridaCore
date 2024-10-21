@@ -3,8 +3,17 @@ using System.Security.Cryptography;
 
 namespace PInvoke.FridaCore;
 
-public class Tools
+public class FridaTools
 {
+    public static byte[] GBytesToBytes(IntPtr gBytes)
+    {
+        int size = 0;
+        IntPtr data=FridaNative.g_bytes_get_data(gBytes, ref size);
+        var result=new byte[size];
+        Marshal.Copy(data,result,0,size);
+        return result;
+    }
+
     public static Dictionary<string, object> GHashTableToDictionary(IntPtr gHashTable)
     {
         var result = new Dictionary<string, object>();

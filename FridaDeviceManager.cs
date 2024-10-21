@@ -22,6 +22,7 @@ public class FridaDeviceManager(IntPtr handle):IFridaObject
             var h = FridaNative.frida_device_list_get(deviceList, i);
             devices.Add(new FridaDevice(h));
         }
+        FridaNative.g_object_unref(deviceList);
         return devices;
     }
 
