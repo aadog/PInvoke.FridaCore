@@ -9,10 +9,10 @@
     <RepositoryType>github</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/aadog/PInvoke.FridaCore</PackageLicenseUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <AssemblyName>aadog.PInvoke.FridaCore</AssemblyName>
     <RootNamespace>aadog.PInvoke.FridaCore</RootNamespace>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
