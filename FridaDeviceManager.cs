@@ -135,17 +135,17 @@ public class FridaDeviceManager(IntPtr handle):IFridaObject
     
     public void OnChange(FridaNative.GCallback callback)
     {
-        On("changed",Marshal.GetFunctionPointerForDelegate(callback));
+        On("changed", callback);
     }   
     public void OnRemoved(IntPtr device,FridaNative.GCallback callback)
     {
-        On("removed",Marshal.GetFunctionPointerForDelegate(callback));
+        On("changed", callback);
     }   
     public void OnAdded(IntPtr device,FridaNative.GCallback callback)
     {
-        On("added",Marshal.GetFunctionPointerForDelegate(callback));
+        On("added", callback);
     }   
-    public void On(string signal,IntPtr callback)
+    public void On(string signal,Delegate callback)
     {
         FridaNative.g_signal_connect_data(Handle,signal,callback,IntPtr.Zero,IntPtr.Zero,GConnectFlags.G_CONNECT_DEFAULT);
     }

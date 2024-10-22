@@ -130,15 +130,15 @@ public class FridaScript(IntPtr handle) : IFridaObject
     
     public void OnMessage(FridaNative.ScriptOnMessageCallback callback)
     {
-        On("message", Marshal.GetFunctionPointerForDelegate(callback));
+        On("message", callback);
     }
 
     public void OnDestroyed(FridaNative.GCallback callback)
     {
-        On("destroyed", Marshal.GetFunctionPointerForDelegate(callback));
+        On("destroyed", callback);
     }
 
-    public void On(string signal, IntPtr callback)
+    public void On(string signal, Delegate callback)
     {
         FridaNative.g_signal_connect_data(Handle, signal, callback, IntPtr.Zero, IntPtr.Zero,
             GConnectFlags.G_CONNECT_DEFAULT);
