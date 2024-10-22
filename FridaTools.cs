@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace PInvoke.FridaCore;
 
@@ -66,16 +67,19 @@ public class FridaTools
 
         if (FridaNative.g_variant_is_of_type(gVariant, FridaNative.GVariantByteArrayType))
         {
-            return FridaNative.g_variant_get_fixed_array(gVariant, IntPtr.Zero, 0);
+            int count = 0;
+            return FridaNative.g_variant_get_fixed_array(gVariant, ref count, 1);
         }
 
         if (FridaNative.g_variant_is_of_type(gVariant, FridaNative.GVariantVarDictType))
         {
             var result = new Dictionary<string, object>();
             var iter = FridaNative.g_variant_iter_new(gVariant);
-            FridaNative.g_variant_iter_init(iter, gVariant);
+            // FridaNative.g_variant_iter_init(iter, gVariant);
             while (true)
             {
+                IntPtr keyPtr = new IntPtr();
+                IntPtr ptr = new IntPtr();
                 var child = FridaNative.g_variant_iter_next_value(iter);
                 if (child == 0)
                 {

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace PInvoke.FridaCore;
 
@@ -154,6 +155,14 @@ public class FridaNative
     [DllImport(DllName)]
     public static extern IntPtr frida_device_find_process_by_pid_sync(IntPtr device, uint pid, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
+    
+    [DllImport(DllName)]
+    public static extern IntPtr frida_device_get_process_by_name_sync(IntPtr device, string name, IntPtr options,
+        IntPtr cancellable, ref IntPtr error);
+
+    [DllImport(DllName)]
+    public static extern IntPtr frida_device_get_process_by_pid_sync(IntPtr device, uint pid, IntPtr options,
+        IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName)]
     public static extern IntPtr frida_device_get_frontmost_application_sync(IntPtr device, IntPtr options,
@@ -261,7 +270,7 @@ public class FridaNative
     public static extern IntPtr g_variant_get_variant(IntPtr variant);
 
     [DllImport(DllName)]
-    public static extern IntPtr g_variant_get_fixed_array(IntPtr variant, IntPtr nElements, int elementSize);
+    public static extern IntPtr g_variant_get_fixed_array(IntPtr variant, ref int nElements, int elementSize);
 
     [DllImport(DllName)]
     public static extern IntPtr g_variant_iter_new(IntPtr variant);
@@ -274,6 +283,9 @@ public class FridaNative
 
     [DllImport(DllName)]
     public static extern IntPtr g_variant_iter_next_value(IntPtr iter);
+    
+    [DllImport(DllName)]
+    public static extern bool g_variant_iter_loop(IntPtr iter,string format_string,out IntPtr key,out IntPtr value);
 
     [DllImport(DllName)]
     public static extern IntPtr g_variant_get_child_value(IntPtr iter, int index);
@@ -323,7 +335,7 @@ public class FridaNative
 
 
     [DllImport(DllName)]
-    public static extern IntPtr frida_session_create_script_sync(IntPtr session, byte[] source, IntPtr options,
+    public static extern IntPtr frida_session_create_script_sync(IntPtr session, IntPtr source, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName)]

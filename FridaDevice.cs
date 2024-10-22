@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace PInvoke.FridaCore;
 
@@ -159,6 +161,64 @@ public class FridaDevice(IntPtr handle):IFridaObject
         }
     }
     
+    public FridaProcess? GetProcessByName(string name,FridaProcessMatchOptions options)
+    {
+        var queryOptions = FridaNative.frida_process_match_options_new();
+        FridaNative.frida_process_match_options_set_scope(queryOptions, options.Scope);
+        if (options.Timeout != null)
+        {
+            FridaNative.frida_process_match_options_set_timeout(queryOptions,options.Timeout.Value);
+        }
+        try
+        {
+            IntPtr ptrError=new IntPtr();
+            var l=FridaNative.frida_device_get_process_by_name_sync(Handle,name, queryOptions, IntPtr.Zero,ref ptrError);
+            if(ptrError!=IntPtr.Zero){
+                var err=Marshal.PtrToStructure<GError>(ptrError);
+                FridaNative.g_error_free(ptrError);
+                throw new FridaException(err);
+            }
+
+            if (l == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            return new FridaProcess(l);
+        }
+        finally
+        {
+            FridaNative.g_object_unref(queryOptions);
+        }
+    }
+    
+    
+    
+
+    public uint? FindFirstProcessByName(string name)
+    {
+        uint pid=0;
+        Process[] processes = Process.GetProcesses();
+        var di=new Dictionary<string, uint>();
+        int i = 0;
+        var sb = new StringBuilder();
+        foreach (var process in processes)
+        {
+            if (process.ProcessName == Path.GetFileNameWithoutExtension(name))
+            {
+                pid = Convert.ToUInt32(process.Id);
+                break;
+            }
+        }
+
+        if (pid == 0)
+        {
+            return null;
+        }
+
+        return pid;
+    }
+
     public FridaProcess? FindProcessByPid(uint pid,FridaProcessMatchOptions options)
     {
         var queryOptions = FridaNative.frida_process_match_options_new();

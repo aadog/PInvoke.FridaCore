@@ -62,8 +62,11 @@ public class FridaSession(IntPtr handle):IFridaObject
         try
         {
             IntPtr ptrError = new IntPtr();
-            var p = FridaNative.frida_session_create_script_sync(Handle, source, scriptOptions, IntPtr.Zero,
+            var bufSource=Marshal.AllocHGlobal(source.Length+1);
+            Marshal.Copy(bufSource,source,0,source.Length);
+            var p = FridaNative.frida_session_create_script_sync(Handle, bufSource, scriptOptions, IntPtr.Zero,
                 ref ptrError);
+            Marshal.FreeHGlobal(bufSource);
             if (ptrError != IntPtr.Zero)
             {
                 var err = Marshal.PtrToStructure<GError>(ptrError);
