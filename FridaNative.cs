@@ -64,6 +64,7 @@ public class FridaNative
 
     public delegate void GCallback();
 
+
     public delegate void ScriptOnMessageCallback(IntPtr script, [MarshalAs(UnmanagedType.LPUTF8Str)]string message, IntPtr data, IntPtr userData);
 
     public delegate void SessionOnDetached(IntPtr session, IntPtr reason, IntPtr crash, IntPtr userData);
@@ -336,7 +337,7 @@ public class FridaNative
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName, CallingConvention=DllCallingConvention)]
-    public static extern IntPtr frida_session_create_script_sync(IntPtr session,[MarshalAs(UnmanagedType.LPUTF8Str)]string source, IntPtr options,
+    public static extern IntPtr frida_session_create_script_sync(IntPtr session,byte[] source, IntPtr options,
         IntPtr cancellable, ref IntPtr error);
 
     [DllImport(DllName, CallingConvention=DllCallingConvention)]
@@ -535,7 +536,7 @@ public class FridaNative
 
     /*g_signal*/
     [DllImport(DllName, CallingConvention=DllCallingConvention)]
-    public static extern UInt64 g_signal_connect_data(IntPtr instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string detailed_signal, Delegate c_handler,
+    public static extern UInt64 g_signal_connect_data(IntPtr instance, [MarshalAs(UnmanagedType.LPUTF8Str)] string detailed_signal, IntPtr c_handler,
         IntPtr data, IntPtr destroy_data, GConnectFlags connect_flags);
     
 

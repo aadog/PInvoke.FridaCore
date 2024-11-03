@@ -57,7 +57,7 @@ public class FridaSession(IntPtr handle) : IFridaObject
         }
     }
 
-    public FridaScript CreateScript(string source, FridaScriptOptions options)
+    public FridaScript CreateScript(byte[] source, FridaScriptOptions options)
     {
         var scriptOptions = FridaNative.frida_script_options_new();
         FridaNative.frida_script_options_set_runtime(scriptOptions, options.Runtime);
@@ -68,8 +68,10 @@ public class FridaSession(IntPtr handle) : IFridaObject
 
         try
         {
+            var bufSource=new byte[source.Length+1];
+            source.CopyTo(bufSource, 0);
             IntPtr ptrError = new IntPtr();
-            var p = FridaNative.frida_session_create_script_sync(Handle, source, scriptOptions, IntPtr.Zero,
+            var p = FridaNative.frida_session_create_script_sync(Handle, bufSource, scriptOptions, IntPtr.Zero,
                 ref ptrError);
             if (ptrError != IntPtr.Zero)
             {
@@ -101,10 +103,10 @@ public class FridaSession(IntPtr handle) : IFridaObject
 
     public void OnDetached(FridaNative.SessionOnDetached callback)
     {
-        On("detached", callback);
+        On("detached", Marshal.GetFunctionPointerForDelegate(callback));
     }
 
-    public void On(string signal, Delegate callback)
+    public void On(string signal, IntPtr callback)
     {
         FridaNative.g_signal_connect_data(Handle, signal, callback, IntPtr.Zero, IntPtr.Zero,
             GConnectFlags.G_CONNECT_DEFAULT);
